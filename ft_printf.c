@@ -36,29 +36,29 @@ int	ft_pointer(unsigned long p, int a)
 	return (i);
 }
 
-int	ft_check_type(char c, va_list arg)
+int	ft_check_type(char c, va_list *arg)
 {
 	int	count;
 
 	count = 0;
 	if (c == 'c')
-		count += ft_putchar(va_arg(arg, int));
+		count += ft_putchar(va_arg(*arg, int));
 	else if (c == 's')
-		count += ft_putstr(va_arg(arg, char *));
+		count += ft_putstr(va_arg(*arg, char *));
 	else if (c == 'd' || c == 'i')
-		count += ft_putnbr(va_arg(arg, int));
+		count += ft_putnbr(va_arg(*arg, int));
 	else if (c == 'u')
-		count += ft_printf_unsigned(va_arg(arg, unsigned int));
+		count += ft_printf_unsigned(va_arg(*arg, unsigned int));
 	else if (c == '%')
 		count += ft_putchar('%');
 	else if (c == 'p')
 	{
-		count += ft_pointer(va_arg(arg, unsigned long), 0);
+		count += ft_pointer(va_arg(*arg, unsigned long), 0);
 	}
 	else if (c == 'x' || c == 'X')
-		count += ft_hexa(va_arg(arg, int), c);
+		count += ft_hexa(va_arg(*arg, int), c);
 	else
-		count += ft_putchar(va_arg(arg, int));
+		count += ft_putchar(va_arg(*arg, int));
 	return (count);
 }
 
@@ -83,9 +83,10 @@ int	ft_printf(const char *str, ...)
 			i += 1;
 			while (str[i] == ' ' && str[i])
 				i++;
-			count += ft_check_type(str[i], a);
+			count += ft_check_type(str[i], &a);
 		}
 		i++;
 	}
+	va_end(a);
 	return (count);
 }
