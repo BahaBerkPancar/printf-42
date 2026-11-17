@@ -41,7 +41,7 @@ int main(void)
 
 ## Known issues
 
-- `ft_check_type` receives the `va_list` by value. On platforms where `va_list` is a plain pointer (observed on macOS arm64) the arguments are not advanced between conversions and the output is wrong; `ft_printf` also never calls `va_end`.
+- None known. The `va_list` is passed by pointer to `ft_check_type` and `va_end` is called, so mixed conversions work on macOS arm64.
 
 ## Project structure
 
